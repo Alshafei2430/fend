@@ -25,6 +25,18 @@
  * 
 */
 
+const handleLinkClick = (e) => {
+    e.preventDefault()
+    const sectionId = e.target.dataset.sectionId
+    const section = document.getElementById(sectionId)
+    window.scrollTo({
+        top: section.offsetTop,
+        left: section.offsetLeft,
+        behavior: 'smooth'
+    })
+    section.setAttribute("class", "active")
+
+}
 
 
 /**
@@ -34,12 +46,29 @@
 */
 
 // build the nav
+const sectionsList = document.querySelectorAll("main > section")
+const ulNavList = document.querySelector("#navbar__list")
+sectionsList.forEach(section => {
+    const link  = document.createElement("a");
+    link.href = `#${section.id}`;
+    const sectionId = section.id;
+    link.addEventListener("click", handleLinkClick)
+    const newListItem = document.createElement("li");
+    newListItem.textContent = section.dataset.nav;
+    newListItem.dataset.sectionId = sectionId;
+    newListItem.setAttribute("class", "menu__link");
+    link.appendChild(newListItem);
+
+    ulNavList.appendChild(link)    
+});
+
 
 
 // Add class 'active' to section when near top of viewport
 
 
 // Scroll to anchor ID using scrollTO event
+
 
 
 /**
